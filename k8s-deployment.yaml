@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment #kubernets resource kind we are creating
+metadata:
+  name: project-database
+spec:
+  selector:
+    matchLabels:
+      app: project-database
+  replicas: 3 #Number of replicas that will create for this deployment
+  template:
+    metadata:
+      labels:
+        app: project-database
+    spec:
+      containers:
+        - name: project-k8s-docker
+          image: shashi28aug/project-database-docker #Image that will be used to be container in cluster
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081 #The port that container is running on in the cluster
